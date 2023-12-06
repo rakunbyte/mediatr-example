@@ -6,6 +6,7 @@ using Models.Requests;
 
 namespace Services;
 
+//You can't add two of the same request handler or it'll throw a System.Reflection.AmbiguousMatchException
 public class ProductHandler(ProductStore store) : 
     IRequestHandler<GetProductsQuery, IEnumerable<Product>>, 
     IRequestHandler<AddProductCommand>,
@@ -27,3 +28,4 @@ public class ProductHandler(ProductStore store) :
         return request.Product;
     }
 }
+
