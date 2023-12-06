@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Commands;
+using Models.Notifications;
 using Models.Requests;
 
 namespace WebApi.Controllers;
@@ -50,6 +51,17 @@ public class ProductController(IMediator mediator) : Controller
     {
         var returnedProduct = await mediator.Send(new AddProductCommand2(product));
         var result = CreatedAtRoute("GetProductById", new {id = returnedProduct.Id}, returnedProduct);
+        return result;
+    }
+    
+    [HttpPost]
+    [Route("AddProductWithNotification")]
+    public async Task<ActionResult> AddProductWithNotification([FromBody]Product product)
+    {
+        var productToReturn = await mediator.Send(new AddProductCommand2(product));
+        await mediator.Publish(new ProductAddedNotification(productToReturn));
+        
+        var result = CreatedAtRoute("GetProductById", new {id = product.Id}, product);
         return result;
     }
 }

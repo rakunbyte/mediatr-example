@@ -17,4 +17,10 @@ public class ProductStore
     public async Task AddProduct(Product product) => Products.Add(product);
 
     public async Task<Product?> GetProductById(long id) => Products.FirstOrDefault(x => x.Id == id);
+    
+    public async Task EventOccured(Product product, string evt)
+    {
+        Products.First(p => p.Id == product.Id).Name = $"{product.Name} evt: {evt}";
+        await Task.CompletedTask;
+    }
 }

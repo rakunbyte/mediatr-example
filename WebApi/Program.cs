@@ -1,4 +1,6 @@
 using Databases;
+using MediatR;
+using Models.Behaviors;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +16,7 @@ builder.Services.AddMediatR(cfg =>
     //Just need one from each assembly
     cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly);
     cfg.RegisterServicesFromAssemblies(typeof(ProductStore).Assembly);
-    cfg.RegisterServicesFromAssemblies(typeof(ProductsService).Assembly);
+    cfg.RegisterServicesFromAssemblies(typeof(ProductHandler).Assembly);
 });
 
 //Add Controllers
@@ -24,8 +26,8 @@ builder.Services.AddRouting(o => o.LowercaseUrls = true);
 //Add Databases
 builder.Services.AddSingleton<ProductStore>();
 
-//Add Services
-//builder.Services.AddSingleton<ProductsService>();
+//Add Behaviors
+builder.Services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
 var app = builder.Build();
 

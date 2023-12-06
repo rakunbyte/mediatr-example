@@ -6,24 +6,24 @@ using Models.Requests;
 
 namespace Services;
 
-public class ProductsService(ProductStore productStore) : 
+public class ProductHandler(ProductStore store) : 
     IRequestHandler<GetProductsQuery, IEnumerable<Product>>, 
     IRequestHandler<AddProductCommand>,
     IRequestHandler<GetProductByIdQuery, Product?>,
     IRequestHandler<AddProductCommand2, Product>
 {
     public async Task<IEnumerable<Product>> Handle(GetProductsQuery request, CancellationToken cancellationToken) => 
-        await productStore.GetAllProducts();
+        await store.GetAllProducts();
     
     public async Task Handle(AddProductCommand request, CancellationToken cancellationToken) => 
-        await productStore.AddProduct(request.Product);
+        await store.AddProduct(request.Product);
     
     public async Task<Product?> Handle(GetProductByIdQuery request, CancellationToken cancellationToken) =>
-        await productStore.GetProductById(request.Id);
+        await store.GetProductById(request.Id);
     
     public async Task<Product> Handle(AddProductCommand2 request, CancellationToken cancellationToken)
     {
-        await productStore.AddProduct(request.Product);
+        await store.AddProduct(request.Product);
         return request.Product;
     }
 }

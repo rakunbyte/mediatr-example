@@ -23,3 +23,11 @@ Content-Type: application/json
 {
   "name": "New Product"
 }
+
+### Add Products With Notification
+POST {{WebApi_HostAddress}}/api/addproductwithnotification
+Content-Type: application/json
+
+{
+  "name": "New Product"
+}
