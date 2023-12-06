@@ -1,6 +1,14 @@
 @WebApi_HostAddress = http://localhost:5246
 
-GET {{WebApi_HostAddress}}/weatherforecast/
+### Get Products
+GET {{WebApi_HostAddress}}/api/GetProducts
 Accept: application/json
 
-###
+### Add Products
+POST {{WebApi_HostAddress}}/api/AddProduct
+Content-Type: application/json
+
+{
+    "Name": "New Product",
+    "Id": 100
+}
