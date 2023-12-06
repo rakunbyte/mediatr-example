@@ -27,11 +27,20 @@ public class ProductController(IMediator mediator) : Controller
         return Ok(products);
     }
     
+    [HttpGet]
+    [Route("GetProductById", Name = "GetProductById")]
+    public async Task<ActionResult> GetProductById([FromQuery]long id)
+    {
+        var product = await mediator.Send(new GetProductByIdQuery(id));
+        return product is null ? NotFound() : Ok(product);
+    }
+    
     [HttpPost]
     [Route("AddProduct")]
-    public async Task<ActionResult> AddProduct(Product product)
+    public async Task<ActionResult> AddProduct([FromBody]Product product)
     {
         await mediator.Send(new AddProductCommand(product));
-        return Ok();
+        var result = CreatedAtRoute("GetProductById", new {id = product.Id}, product);
+        return result;
     }
 }

@@ -4,11 +4,15 @@
 GET {{WebApi_HostAddress}}/api/GetProducts
 Accept: application/json
 
+### Get Product by ID
+GET {{WebApi_HostAddress}}/api/GetProductById?id=2
+Accept: application/json
+
 ### Add Products
-POST {{WebApi_HostAddress}}/api/AddProduct
+POST {{WebApi_HostAddress}}/api/addproduct
 Content-Type: application/json
 
 {
-    "Name": "New Product",
-    "Id": 100
+    "name": "New Product",
+    "id": 100
 }
