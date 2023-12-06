@@ -9,7 +9,8 @@ namespace Services;
 public class ProductsService(ProductStore productStore) : 
     IRequestHandler<GetProductsQuery, IEnumerable<Product>>, 
     IRequestHandler<AddProductCommand>,
-    IRequestHandler<GetProductByIdQuery, Product?>
+    IRequestHandler<GetProductByIdQuery, Product?>,
+    IRequestHandler<AddProductCommand2, Product>
 {
     public async Task<IEnumerable<Product>> Handle(GetProductsQuery request, CancellationToken cancellationToken) => 
         await productStore.GetAllProducts();
@@ -19,4 +20,10 @@ public class ProductsService(ProductStore productStore) :
     
     public async Task<Product?> Handle(GetProductByIdQuery request, CancellationToken cancellationToken) =>
         await productStore.GetProductById(request.Id);
+    
+    public async Task<Product> Handle(AddProductCommand2 request, CancellationToken cancellationToken)
+    {
+        await productStore.AddProduct(request.Product);
+        return request.Product;
+    }
 }

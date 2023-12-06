@@ -13,6 +13,13 @@ POST {{WebApi_HostAddress}}/api/addproduct
 Content-Type: application/json
 
 {
-    "name": "New Product",
-    "id": 100
+    "name": "New Product"
+}
+
+### Add Products 2
+POST {{WebApi_HostAddress}}/api/addproduct2
+Content-Type: application/json
+
+{
+  "name": "New Product"
 }

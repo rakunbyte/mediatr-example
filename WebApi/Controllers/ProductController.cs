@@ -43,4 +43,13 @@ public class ProductController(IMediator mediator) : Controller
         var result = CreatedAtRoute("GetProductById", new {id = product.Id}, product);
         return result;
     }
+    
+    [HttpPost]
+    [Route("AddProduct2")]
+    public async Task<ActionResult> AddProduct2([FromBody]Product product)
+    {
+        var returnedProduct = await mediator.Send(new AddProductCommand2(product));
+        var result = CreatedAtRoute("GetProductById", new {id = returnedProduct.Id}, returnedProduct);
+        return result;
+    }
 }

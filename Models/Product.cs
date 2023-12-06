@@ -2,6 +2,6 @@
 
 public class Product
 {
-    public required long Id { get; set; }
+    public long Id { get; } = new Random().NextInt64();
     public required string Name { get; set; }
 }
